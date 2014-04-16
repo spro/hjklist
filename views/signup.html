@@ -1,0 +1,61 @@
+{% extends "base" %}
+{% block extrahead %}
+<script type="text/javascript">
+    
+    var form_errors = false;
+    function clear_errors() {
+        $('#errors').empty();
+        $('.errored').removeClass('errored');
+        form_errors = false;
+    }
+    function add_error(message, element) {
+        var new_error = $('<p>').addClass('error').html(message);
+        $('#errors').append(new_error);
+        if (element) { $(element).addClass('errored'); }
+        form_errors = true;
+    }
+    
+    function valid_email(email) {
+        var re = /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+(?:[a-zA-Z]{2}|com|org|net|edu|gov|mil|biz|info|mobi|name|aero|asia|jobs|museum)\b/;
+        return re.test(email);
+    }
+
+    $(document).ready(function() {
+        $("#signup_form").submit(function(event) {
+            // clear old errors
+            clear_errors();
+            // check fields
+            if (!$('#username').val()) { add_error("Enter a username.", '#username'); }
+            if (!valid_email($('#email').val())) { add_error("Enter a valid email address.", '#email'); }
+            if (!$('#password').val()) { add_error("Enter a password.", '#password'); }
+            if (form_errors) return false;
+            $(this).submit();
+        });
+    });
+
+</script>
+{% endblock %}
+{% block title %}<h2>Sign up</h2>{% endblock %}
+{% block content %}
+<h2>Sign up for hjklist</h2>
+<form action='' method='post' id="signup_form">
+    <div class="row clear">
+        <h3>Enter your details</h3>
+    </div>
+    <div class="row clear">
+        <label for='username'>Username</label>
+        <input type='text' id="username" name='username' placeholder='username' value='{{ submitted['username'] }}'/>
+    </div>
+    <div class="row clear">
+        <label for='email'>Email</label>
+        <input type='text' id="email" name='email' placeholder='email' value='{{ submitted['email'] }}'/>
+    </div>
+    <div class="row clear">
+        <label for='password'>Password</label>
+        <input type='password' id="password" name='password' placeholder='password' value='{{ submitted['password'] }}'/>
+    </div>
+    <div class="center">
+        <button class='signup' type='submit'>Sign up</button>
+    </div>
+</form>
+{% endblock %}

@@ -1,0 +1,44 @@
+<!doctype html>
+<html>
+<head>
+    <title>hjklist</title>
+    <script type="text/javascript" src="/js/jquery.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="/css/fonts/warnock.css" />
+    <link rel="stylesheet" type="text/css" href="/css/base.css" />
+    {% block extrahead %}
+    {% endblock %}
+</head>
+<body>
+<div id="main">
+    <div id="title">
+        <h1><a href="/"><span>hjklist</span></a></h1>
+        <div id="session">
+        {% if user %}
+            Hello, <a href="/account" id="username"><span>{{ user.username }}</span></a>. <a href="/logout">Log out?</a>
+        {% else %}
+            <a href="/login">Log in</a> or <a class="signup" href="/signup">Sign up</a>
+        {% endif %}
+        </div>
+    </div>
+    <div id="messages">
+        {% for message in messages %}
+        <p class="message">{{ message }}</p>
+        {% endfor %}
+    </div>
+    <div id="errors">
+        {% for error in errors %}
+        <p class="error">{{ error }}</p>
+        {% endfor %}
+    </div>
+    {% block main %}
+        <div id="content">
+        {% block content %}
+        {% endblock %}
+        </div>
+    {% endblock %}
+    <div id="footer">
+        hjklist was created in <strong>2012</strong> by <a href="http://sprobertson.com/">Sean Robertson</a>
+    </div>
+</div>
+</body>
+</html>

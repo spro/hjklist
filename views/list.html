@@ -1,0 +1,24 @@
+{% extends "base" %}
+{% block extrahead %}
+<script type="text/javascript" src="/js/hotkeys.js"></script>
+<script type="text/javascript" src="/js/h.js"></script>
+<script type="text/javascript" src="/js/underscore.js"></script>
+<script type="text/javascript" src="/js/backbone.js"></script>
+<link rel="stylesheet" type="text/css" href="/css/hjklist.css" />
+<script type="text/javascript" src="/js/Markdown.Converter.js"></script>
+<script type="text/javascript" src="hjklist.js"></script>
+{% endblock %}
+{% block main %}
+<div id="root">
+    <script type="text/javascript">
+    $(function() {
+        root = new Item({{ root }});
+        rootNode = new ItemView({model: root});
+        rootNode.parent = rootNode;
+        selectedNode = rootNode;
+        $("#root").append(rootNode.render().el);
+        rootNode.expand();
+    });
+    </script>
+</div>
+{% endblock %}

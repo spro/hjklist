@@ -1,0 +1,17 @@
+{% extends "base" %}
+{% block content %}
+<form action='/login' method='post'>
+    <div class="row clear">Forgot your password? No worries, you can <a href="/account/password/forgot">get a new one</a>.</div>
+    <div class="row clear">
+        <label for='username'>Username</label>
+        <input type='text' name='username' placeholder='username' {% if submitted %}value="{{ submitted['username'] }}"{% endif %} />
+    </div>
+    <div class="row clear">
+        <label for='password'>Password</label>
+        <input type='password' name='password' placeholder='password' />
+    </div>
+    <div class="center">
+        <button type='submit'>Log in</button>
+    </div>
+</form>
+{% endblock %}
